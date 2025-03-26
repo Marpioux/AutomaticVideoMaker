@@ -1,24 +1,32 @@
-from moviepy import *
+from moviepy import VideoFileClip, TextClip, CompositeVideoClip, AudioFileClip
+from synchronisationVoiceText import synchronisationVoiceText  # Fonction qui extrait les sous-titres
 
-# Charger le fichier vidéo "GameplayMinecraft.mp4" et extraire une portion du clip entre 00:00:10 et 00:00:20
-clip = VideoFileClip("GameplayMinecraft.mp4").subclipped(10, 20)
+# 🟢 Étape 1 : Charger la vidéo et l'audio
+video = VideoFileClip("./films/GameplayMinecraft.mp4")  # Vidéo complète
+audio = AudioFileClip("./sounds/output.wav")  # Audio complet
 
-# Charger l'audio à ajouter (dans ce cas, "paul.mp3")
-audio = AudioFileClip("paul.mp3")
+# Ajuster la durée de la vidéo à celle de l'audio
+video = video.with_duration(audio.duration).with_audio(audio)
 
-# Créer un clip de texte avec un fond de texte, une couleur, une taille et une durée
-txt_clip = TextClip(
-    font="Game Bubble.ttf", text="Example pour paul", font_size=30, color="yellow"
-)
+# 🔵 Étape 2 : Extraire les sous-titres avec les bons timings
+subtitles = synchronisationVoiceText("./sounds/output.wav")
 
-# Positionner le texte au centre et définir la durée du texte
-txt_clip = txt_clip.with_position("center").with_duration(10)
+# 🔴 Étape 3 : Générer les clips de texte synchronisés
+text_clips = []
+for text, start, end in subtitles:
+    txt_clip = TextClip(
+        font="./font/Game Bubble.ttf",
+        text=text,
+        font_size=25,
+        color="black",
+        #bg_color="black",
+    ).with_position("center").with_duration(end - start).with_start(start)
+    
+    text_clips.append(txt_clip)
 
-# Créer la vidéo composite en ajoutant le texte à la vidéo
-final_video = CompositeVideoClip([clip, txt_clip])
+# 🟠 Étape 4 : Créer la vidéo finale avec le texte superposé
+final_video = CompositeVideoClip([video] + text_clips)
 
-# Assigner l'audio au clip final
+# 🟣 Étape 5 : Exporter la vidéo finale
 final_video = final_video.with_audio(audio)
-
-# Enregistrer le résultat dans un fichier vidéo
-final_video.write_videofile("result.mp4")
+final_video.write_videofile("FirstCompleteTest.mp4")
