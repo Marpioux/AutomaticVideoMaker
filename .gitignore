@@ -3,3 +3,4 @@
 /garbage/*
 /sounds/*
 /models/*
+__pycache__/*
