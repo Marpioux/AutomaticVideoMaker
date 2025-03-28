@@ -1,6 +1,7 @@
 import json
 import wave
 from vosk import Model, KaldiRecognizer
+
 def synchronisationVoiceText(audio_path):
     # Charger le modèle Vosk
     model_path = "models/vosk-model-small-en-us-0.15"
