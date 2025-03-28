@@ -1,0 +1,6 @@
+moviepy
+vosk
+requests
+coqui-tts
+python-dotenv
+openai
