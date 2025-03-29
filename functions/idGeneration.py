@@ -7,12 +7,12 @@ def generate_audio_id(indentation: int = 0) -> str:
     Checks for existing files in ../sounds/generate and increments the indentation if necessary.
     """
     current_date = datetime.now().strftime("%Y%m%d")
-    base_path = "../sounds/generate"
+    base_path = "sounds\generate"
     os.makedirs(base_path, exist_ok=True)  # Ensure the directory exists
 
     while True:
         audio_id = f"audio_{current_date}_{indentation:03d}"
-        if not os.path.exists(os.path.join(base_path, f"{audio_id}.mp3")):
+        if not os.path.exists(os.path.join(base_path, f"{audio_id}.wav")):
             return audio_id
         indentation += 1
 
@@ -22,7 +22,7 @@ def generate_video_id(indentation: int = 0) -> str:
     Checks for existing files in ../films/generate and increments the indentation if necessary.
     """
     current_date = datetime.now().strftime("%Y%m%d")
-    base_path = "../films/generate"
+    base_path = "films\generate"
     os.makedirs(base_path, exist_ok=True)  # Ensure the directory exists
 
     while True:

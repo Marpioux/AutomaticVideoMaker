@@ -14,7 +14,7 @@ def generate_story():
         model="gpt-4o",
         messages=[
             {"role": "system", "content": "You are a storytelling assistant."},
-            {"role": "user", "content": "Write a short 200-word story about a magical adventure."}
+            {"role": "user", "content": "Tell me all you know about JFK death in 100 words"}
         ],
         max_tokens=200
     )

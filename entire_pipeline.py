@@ -4,6 +4,7 @@ from functions.synchronisationVoiceText import synchronisationVoiceText
 from functions.movieMakerTest import creationMovie
 from functions.upload import upload_to_tiktok
 from functions.idGeneration import generate_audio_id, generate_video_id
+from functions.textVerification import modifier_subtitles
 
 # Generer les IDs du jour pour vidéos et sons
 audio_id = generate_audio_id()
@@ -19,10 +20,10 @@ convertion = text_to_speech(story, f"./sounds/generate/{audio_id}.wav")
 subtitles = synchronisationVoiceText(f"./sounds/generate/{audio_id}.wav")
 
 # Verification textuel des sous-titres
-# ToDo
+#subtitles = modifier_subtitles(story, subtitles)
 
 # Création de la vidéo avec MoviePy
 movie = creationMovie(subtitles, f"./sounds/generate/{audio_id}.wav", f"./films/generate/{video_id}.mp4")
 
 # Publication sur TikTok via l’API
-upload_to_tiktok(f"./films/generate/{video_id}.mp4")
+#upload_to_tiktok(f"./films/generate/{video_id}.mp4")
